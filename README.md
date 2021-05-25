@@ -1,4 +1,4 @@
-# joint_ultiomic_analysis
+# joint_multiomic_analysis
  main modules of the paper
  -compute CG and GC counts in a 100 bp window
  -compute DARs, SARs
