@@ -20,7 +20,7 @@ display('1. Filter precomputed counts by standard coverage=25x');
    winFolder=('test_data\windows\');
    my_folder='test_data\counts\';
  
-   FilenameEct  = sprintf('me_unme_nposm_nposu_Ect_%s.txt',name_chr);
+   FilenameEct  = sprintf('me_unme_nposm_nposu_Ect1_%s.txt',name_chr);
    [winn,level_BEFneg,covEFneg,BE_npos_meNeg,BE_npos_unmeNeg,fracZ_lowE]=prefilter_count_chrN_ext(thr_cov,FilenameWin,winFolder,my_folder,FilenameEct);
    
    FilenameEnd  = sprintf('me_unme_nposm_nposu_End5_%s.txt',name_chr);
