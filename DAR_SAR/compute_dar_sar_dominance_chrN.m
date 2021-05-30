@@ -38,7 +38,7 @@ display('1. Filter precomputed counts by standard coverage=25x');
    fracZ_low_EcEnM=[fracZ_lowE;fracZ_lowEn;fracZ_lowM]
    
 display('2. DEfine DARs and  equal SARs HL with standard params') 
-   [tot, DAR, DAR_car, SARH,pu,ch,amp,SARL]=dar_SARHL_tot_lev_levGC_cov_PuHL(thr_sim,thr_dif,thr_accH,thr_accL,winn,level_BEFneg,level_BEnFneg,level_BCFneg,covEFneg,covEnFneg,covCFneg,BE_npos_meNeg,BEn_npos_meNeg,BC_npos_meNeg, BE_npos_unmeNeg,BEn_npos_unmeNeg,BC_npos_unmeNeg, chrN);
+   [tot, DAR, DAR_raw,SAR_raw, SARH,pu,ch,amp,SARL]=dar_SARHL_tot_lev_levGC_cov_PuHL(thr_sim,thr_dif,thr_accH,thr_accL,winn,level_BEFneg,level_BEnFneg,level_BCFneg,covEFneg,covEnFneg,covCFneg,BE_npos_meNeg,BEn_npos_meNeg,BC_npos_meNeg, BE_npos_unmeNeg,BEn_npos_unmeNeg,BC_npos_unmeNeg, chrN);
     %------------------------OUTPUT
     %SAR=[chr st en chp' lev_ES' lev_EnS' lev_CS' ind'];
     %     1   2  3  4     5        6        7       8
@@ -47,7 +47,7 @@ display('2. DEfine DARs and  equal SARs HL with standard params')
    si_SARL=size(SARL)
    si_DAR=size(DAR)
  
-   %===============write DARs SARs with accessibility level per lineage
+   %===============write DARs SARs into output files, with accessibility level per lineage
     [chrN]=save_chromatin_EctEndMes(DAR,folder,textFilenameDAR,chrN);
     [chrN]=save_chromatin_EctEndMes(SARH,folder,textFilenameSAR,chrN);
     
