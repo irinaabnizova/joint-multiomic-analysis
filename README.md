@@ -1,6 +1,7 @@
-# joint_multiomic_analysis ::
+# joint_multiomic_analysis 
 
-Computational methods used to analyse jointlythe transcriptome, chromatin accessibility and DNA methylation data from scNOME_seq data (Clark 2018).
+joint_multiomic_analysis :: Computational methods used to analyse jointly the transcriptome, chromatin accessibility and DNA methylation data from scNOME_seq data (Clark 2018).
+
 This set of methods allows to define two contrasting sets of genes: differentially expressed genes (DEGs) and similarly expressed genes (SEGs) from the transcriptomics data per lineage (pseudobulk).
 It further identifies epigenetic patterns genome-wide, for both chromatin and DNA methylation layers.
 It puts together gene expression and epigentic patterns, and establishes features separating developental (DEGs) vs housekeeping (SEGs) gene regulatory programs.
