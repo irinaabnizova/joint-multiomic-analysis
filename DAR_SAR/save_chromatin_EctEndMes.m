@@ -1,11 +1,12 @@
-function [chrN]=save_chromatin_EctEndMes(DAR,folder,textFilename,chrN)
+function [add]=save_chromatin_EctEndMes(DAR,folder,textFilename)
 %==========write DAR or SAR with GC levels for each lineage
 %------------------------Input
  %SAR=[chr st en chp' lev_ES' lev_EnS' lev_CS' ind'];
     %    1    2  3  4     5        6     7       8
+    add=25;
     chr=DAR(:,1);
-    starts=DAR(:,2)-25;
-    ends=DAR(:,3)+25;
+    starts=DAR(:,2)-add;
+    ends=DAR(:,3)+add;
     ch=DAR(:,4);
     lev_EcS=DAR(:,5);
     lev_EnS=DAR(:,6);
