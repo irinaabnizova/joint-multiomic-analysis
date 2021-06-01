@@ -1,4 +1,4 @@
-function [winn,level_BEFneg,covEFneg,BE_npos_meNeg,BE_npos_unmeNeg,fracZ_lowE]=prefilter_count_chrN_ext(thr_low,FilenameWin,winFolder,my_folder,FilenameEct,chrN)
+function [winn,level_BEFneg,covEFneg,BE_npos_meNeg,BE_npos_unmeNeg,fracZ_lowE]=prefilter_count_chrN(thr_low,FilenameWin,winFolder,my_folder,FilenameEct)
 %filter out low coverage windows for GC methylation
 display('%------------------count prefiltering'); 
 
