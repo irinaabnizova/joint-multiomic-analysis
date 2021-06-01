@@ -17,7 +17,7 @@ Tools described here can potentially be extended to disentangle gene regulatory 
  
  - compute CG and GC counts in a 100 bp window
  
- - compute DARs, SARs
+ - compute DARs, SARs: 
 Computational methods used to identify differentially accessible regions (DARs) and similarly accessible regions (SARs) genome-wide
 from the GC-methylation data of bulked scNOME_seq. This set of tools is used for producing of these two sets of chromatin accessible regions in bed-file format. 
  
@@ -27,7 +27,7 @@ from the GC-methylation data of bulked scNOME_seq. This set of tools is used for
  - link DNA methylation and genes
  - define lineage specific pioneering and cooperative TFs
 
-Requirements
-Matlab
-C (for CG/GC methylation windows precomputing)
-R
+Requirements: 
+Matlab,
+C (for CG/GC methylation windows precomputing),
+R tidyverse
