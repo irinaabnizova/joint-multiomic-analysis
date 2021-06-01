@@ -1,4 +1,4 @@
-function [tot, DAR, DAR_raw, SAR_raw,SARH,pu,ch,amp,SARL]=dar_sarHL_levGC_dominance(thr_sim,thr_dif,thr_accH,thr_accL,winn,level_BEFneg,level_BEnFneg,level_BCFneg,covEFneg,covEnFneg,covCFneg,BE_npos_meNeg,BEn_npos_meNeg,BC_npos_meNeg, BE_npos_unmeNeg,BEn_npos_unmeNeg,BC_npos_unmeNeg, chrN);
+function [tot, DAR, DAR_raw, SAR_raw,SARH,pu,ch,amp,SARL]=dar_sar_levGC_dominance(thr_sim,thr_dif,thr_accH,thr_accL,winn,level_BEFneg,level_BEnFneg,level_BCFneg,covEFneg,covEnFneg,covCFneg,BE_npos_meNeg,BEn_npos_meNeg,BC_npos_meNeg, BE_npos_unmeNeg,BEn_npos_unmeNeg,BC_npos_unmeNeg, chrN);
 
 % computes DARs SARs due to Chastity/Purity in one go
 % SARHL- separate H L accessibility thr: thr_accH,thr_accL
