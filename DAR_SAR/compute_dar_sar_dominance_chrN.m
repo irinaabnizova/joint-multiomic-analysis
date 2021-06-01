@@ -31,9 +31,9 @@ display('Standard Parameters of DAR SAR computing from GC counts in a 100 bp win
 
 display('1. Filter precomputed counts by standard coverage=25x');
 
-   [winn,level_BEFneg,covEFneg,BE_npos_meNeg,BE_npos_unmeNeg,fracZ_lowE]=prefilter_count_chrN_ext(thr_cov,FilenameWin,winFolder,my_folder,FilenameEct);
-   [winn,level_BEnFneg,covEnFneg,BEn_npos_meNeg,BEn_npos_unmeNeg,fracZ_lowEn]=prefilter_count_chrN_ext(thr_cov,FilenameWin,winFolder,my_folder,FilenameEnd,chrN);
-   [winn,level_BCFneg,covCFneg,BC_npos_meNeg,BC_npos_unmeNeg,fracZ_lowM]=prefilter_count_chrN_ext(thr_cov,FilenameWin,winFolder,my_folder,FilenameMes,chrN);
+   [winn,level_BEFneg,covEFneg,BE_npos_meNeg,BE_npos_unmeNeg,fracZ_lowE]=prefilter_count_chrN(thr_cov,FilenameWin,winFolder,my_folder,FilenameEct);
+   [winn,level_BEnFneg,covEnFneg,BEn_npos_meNeg,BEn_npos_unmeNeg,fracZ_lowEn]=prefilter_count_chrN(thr_cov,FilenameWin,winFolder,my_folder,FilenameEnd);
+   [winn,level_BCFneg,covCFneg,BC_npos_meNeg,BC_npos_unmeNeg,fracZ_lowM]=prefilter_count_chrN(thr_cov,FilenameWin,winFolder,my_folder,FilenameMes);
 
    fracZ_low_EcEnM=[fracZ_lowE;fracZ_lowEn;fracZ_lowM]
    
