@@ -1,0 +1,100 @@
+Specificity module
+
+Computatitonal methods used to compute how specific two sets of TF motifs are:
+
+It consists of the following steps:
+
+    1. compute feature-vector/matrix for each TF motif list
+    2.  computing pairwise similarities between lists of enriched TFBS motifs between and within two given sets: e.g. DEGs core=promoters and SEGs core prooters.
+    3.  compute median similarity values within  and between sets of TF lists
+    4. performs permutation test for significance of specificity: suffles ranks and motifs within lists
+
+
+This set of tools is used for producing:
+ - similarity matrix 2x2 for median values of within and between sets similarity values
+ - together with specificity value (as relative proportion of difference between similarities)  
+ - probability  of obtaing the same specificity by chance given similar local nucleotide content
+
+Check the original manuscript where this method was applied for context details:
+
+'Integrative analysis of transcriptomic and epigenomic data reveals distinct patterns for developmental and housekeeping genes'
+
+
+Main scripts and functions
+
+MAIN_compute_promoter_specificity.m:
+
+
+A. default option
+
+to run it, user should submit minimal amount of input files and the names/path of ouput files:
+
+[M2pp,DSP,rel_err,prob]=MAIN_compute_promoter_specificity(FLC,listS1,list11,list21,list31);
+
+
+where
+chrN is an interger (here, chrN=13)
+name_chr is a string (here, 'chr13')
+file_win,file_countEct,file_countEnd,file_countMes - names and paths of input files
+outDAR,outSAR- names and paths of output files
+
+In this case the default values of the five threshold will be generated within the function:
+   thr_cov=25;
+   thr_dif=0.51;
+   thr_sim=0.36; 
+   thr_accH=0.35;
+   thr_accL=0.20;
+   
+
+In the data_specificity folders the motif lists for promoters and enhancers (DEGs and SEGs) are stored, 
+and the pathes/names of input and output files are generated for the hard-coded function for compactness: 
+
+[file_win,file_countEct,file_countEnd,file_countMes,outDAR,outSAR]=test_file_names(); 
+
+Therefore, to run it from a command line one should run the following lines:
+
+     [FLCC,list_SEG,list_Ect,list_End,list_Mes,outOriginal,outShuffled]=test_enhancer_names();  
+     [matrix_sim_Original,vectors_sim_Shuffled,specificity,prob]=MAIN_compute_specificity(FLCC,list_SEG,list_Ect,list_End,list_Mes);
+
+
+
+ B. If the user wants to vary parameters,e.g. then they should  submit 7 inputs, where the last two
+ are user defined thresholds for the length of lists (in proportions, should be less than 1) and user defined quartile weight values:
+
+e.g. usage is:
+    fS=1;quart_weights=[0.8,0.4,0.2,0.1];
+    [FLCC,list_SEG,list_Ect,list_End,list_Mes,outOriginal,outShuffled]=test_enhancer_names(); 
+    [matrix_sim_Original,vectors_sim_Shuffled,specificity,prob]=MAIN_compute_specificity(FLCC,list_SEG,list_Ect,list_End,list_Mes,fS,quart_weights);
+
+
+Defscription:
+The main function used for reading the TF motifs data for DEGs and SEGs sets, optionally filtering it by gene expression, separately for each lineage. 
+It further computes a pairwise similarity of motifs within and between sets, averaging it as median and outputting as 2x2 original matrix.
+It computes specificity as diffence of overall similarities between sets.
+To infer how significant it is, It then shuffles lists 100 times, computing probability of getting same level of specificity by chance.
+ 
+Test data
+
+data_specificity folder contains TF lists for DEGs and SEGs putative enhancers and core-promoters.
+
+
+the function test_file_names.m
+generates names of the given test files arranged in the test_data folder: 
+[file_win,file_countEct,file_countEnd,file_countMes,outDAR,outSAR]=test_file_names(name_chr); 
+
+Dependencies
+
+permute_original_loop.m          : function used to compute original and shuffled matrices of similarity
+             
+M2_fromM4_noDiag.m               : function used to transform 4x4 into 2x2 metrix     
+
+put_Zero_rank_uniform_bw_a_b.m   : function used to shuffle ranks and positions of TF motifs          
+   
+quartileControl_feature_permute.m: function used to permute ranks      
+    
+sim_matrix_sameType_1.m           : function used to compute original matrix             
+ 
+test_enhancer_names.m             : function used to generate lists name for test
+
+uniform_bw_a_b.m                  : sample uniformly between a and b
+  
