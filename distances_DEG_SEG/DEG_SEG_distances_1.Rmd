@@ -1,0 +1,299 @@
+---
+title: "Setting parameters, distance function, getting gene sets (eg Diff (Ect End Mes)Sim), filter gene list, compute and plot distances"
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+** main file **
+
+```{r}
+#0.	Data. Install tidyverse, gridExtra, ggpubr, tinytex
+library(ggplot2)
+library(tidyverse)
+library(gridExtra)
+library(tidyr)
+library(ggpubr)
+#library("readxl")
+library(datasets)  
+library(purrr)
+library(matrixStats)
+library(beanplot)
+library(plotrix)
+library(pastecs)
+library(rstatix)
+
+
+```
+Parameters
+
+
+param1. GE threshold for distance function
+```{r}
+
+thrGE <- 2
+param1=thrGE
+
+```
+param2. distance function
+```{r}
+param2='distanceTSS'
+param2
+source("distanceTSS_ect.R")
+source("distanceTSS_mes.R")
+source("distanceTSS_end.R")
+```
+
+param4 main expression set:
+gene expression per gene and layer: Raw data
+
+Importing expression values: these are Seqmonk reports OR other sources
+
+- recent Christel: only Ect Mes
+- Christel 2018 : all pseudobulk Transpriptome, d4-d7
+- new Stephen
+
+```{r}
+
+param4="NPSB"
+
+
+source("read_NPSB.R")
+read_NPSB(param4)->main_raw
+main_raw
+
+```
+
+
+param5. DEGs SEGs sets to compare, e.g. DiffEct DiffMes Sim etc:
+
+- DEgenes by Christel
+- DEGs by MZ
+- DEGs by Carine
+
+- DEGs_SEGs_IrChadj (Ect vs Mes)
+
+```{r}
+param5='Dominance index'
+source("DEGs_SEGs_Chadj.R")
+splitted_DEG_S <- DEGs_SEGs_Chadj(param5)
+splitted_DEG_S
+#param5='clustering'
+#source("DEGs3_SEGs_Ch_High_data.R")
+#DEGs3_SEGs_Ch_High_data()->splitted_DEG_S
+
+#splitted_DEG_S <- DEGs_SEGs_IrChadj(param5)
+#splitted_DEG_S
+
+```
+5.1. extract DEG vectors from the splitted sets matrix: splitted_DEG_S
+  
+```{r}
+
+#------------------------from splitted_DEG_S
+
+DifEct_Any <-splitted_DEG_S[[1]]
+#DifEct_Any
+
+DifMes_Any <-splitted_DEG_S[[3]]
+#DifMes_Any
+
+DifEnd_Any <-splitted_DEG_S[[2]]
+
+Sim_Any <- splitted_DEG_S[[4]]
+#Sim_Any
+# ----------------submit DEGs, extract dEG vectors
+DifEct_Any %>% 
+  distinct(gene) %>% 
+  as_vector() -> DEct_vector
+ len_De <- length(DEct_vector)
+ len_De
+ 
+ DifEnd_Any %>% 
+  distinct(gene) %>% 
+  as_vector() -> DEnd_vector
+ len_Den <- length(DEnd_vector)
+ len_Den
+
+
+DifMes_Any %>% 
+  distinct(gene) %>% 
+  as_vector() -> DMes_vector
+len_Dm <- length(DMes_vector)
+len_Dm
+
+#------------------Sim
+Sim_Any %>% 
+  distinct(gene) %>% 
+  as_vector() -> Sim_vector
+
+len_Ds <- length(Sim_vector)
+len_Ds
+
+```
+
+
+==========================MAIN body
+
+action1: apply distance function to main_raw gene list, depending on GE threshold:  TA
+
+ - apply distance middle to the data raw, no flipping. Compute minimal dist bw gene middles
+ 
+ - without CG data
+ 
+```{r}
+#a2.1 -----------------------distance GA: for no thrGE all genes
+#source("distanceMiddle.R")
+
+#main_raw
+#------------------ouput 11 fields (including GEi; swapped rev start end)
+
+#-------------------all Expressed >2 in Ecto
+distanceTSS_ect(main_raw,thrGE)->dist_genes_ect
+dim(dist_genes_ect)->size_dge
+size_dge
+
+distanceTSS_end(main_raw,thrGE)->dist_genes_end
+dim(dist_genes_end)->size_dgen
+size_dgen
+
+distanceTSS_mes(main_raw,thrGE)->dist_genes_mes
+dim(dist_genes_mes)->size_dgm
+size_dgm
+
+```
+  action2: pick up distances (GE>2) for each DEG SEG set
+ 
+  - apply  DEGs set to min distances bw genes (TA if thrGE>-12):   
+    
+action 2.2 : add a column 'set' depending on what DEG or SEG each gene is:  by apply DEG SEG Irina genes to min distances in this thrGE (per layer)
+
+
+  action 2.2.1.-------------all together Diff Sim genes: add the SET column (4 sets) for each Layer
+  
+```{r}
+ #dist_genes_CG_ect %>%
+   dist_genes_ect %>%
+    mutate(set=case_when(gene %in% DEct_vector ~"DifEc",
+                         gene %in% DEnd_vector ~"DifEn",
+                         gene %in% DMes_vector ~"DifM",
+                         gene %in% Sim_vector ~"Sim")
+    )->separated_DS_ect
+  #separated_DS_ect
+  
+  
+  #------------------------in the meso layer
+  
+  #dist_genes_CG_mes %>%
+    dist_genes_mes %>%
+    mutate(set=case_when(gene %in% DEct_vector ~"DifEc",
+                         gene %in% DEnd_vector ~"DifEn",
+                         gene %in% DMes_vector ~"DifM",
+                         gene %in% Sim_vector ~"Sim")
+    )->separated_DS_mes
+  #separated_DS_mes
+    
+    dist_genes_end %>%
+    mutate(set=case_when(gene %in% DEct_vector ~"DifEc",
+                         gene %in% DEnd_vector ~"DifEn",
+                         gene %in% DMes_vector ~"DifM",
+                         gene %in% Sim_vector ~"Sim")
+    )->separated_DS_end
+ 
+    separated_DS_end
+    
+```
+ 
+action 3. Medians of Distances. All together Diff Sim one file, dist medians, 3 per Layer
+
+```{r}
+#---------------------------------all DEGs and SEGs
+source("summ_med_dist_count.R")
+source("violin5_dist.R")
+
+#-------------from expressed in Ect2
+med_Dif_EcMSe<-summ_med_dist_count(separated_DS_ect)
+print("median dist Diff Ect vs Dif Mes vs SEG, Ect xpressed, KB")
+med_Dif_EcMSe
+vEctset<-violin5_dist(separated_DS_ect,med_Dif_EcMSe,param5,thrGE)
+vEctset+ggtitle("dist for DEGs SEGs expressed in Ect")
+```
+-for Endo expressed genes DEGs SEGs rest
+
+```{r}
+#-------------from expressed in End2 (GE>2)
+med_Dif_EcMSen<-summ_med_dist_count(separated_DS_end)
+print("median dist Diff Ect vs Dif Mes vs SEG, End xpressed, KB")
+med_Dif_EcMSen
+vEndset<-violin5_dist(separated_DS_end,med_Dif_EcMSen,param5,thrGE)
+vEndset+ggtitle("dist for DEGs SEGs expressed in End")
+```
+- for Meso extressed genes DEGs SEGs rest
+
+```{r}
+#-------------from expressed in Mes2
+med_Dif_EcMSm<-summ_med_dist_count(separated_DS_mes)
+print("median dist Diff Ect End Mes vs SEG, Mes expressed,KB")
+med_Dif_EcMSm
+
+
+vMesset<-violin5_dist(separated_DS_mes,med_Dif_EcMSm,param5,thrGE)
+vMesset+ggtitle("dist for DEGs SEGs expressed in Mes")
+
+```
+action 4  make stats and plots Length
+
+```{r}
+#source("len_DEG_SEG.R")
+#len_DEG_SEG(separated_DS_ect,separated_DS_mes,param5,thrGE)->Len_deg_seg
+#Len_deg_seg
+ 
+```
+
+-stats
+```{r}
+#GA_TA02_seg_deg
+GA_TA02_seg_deg%>%
+  ggplot(aes(set,log2(min_dist),fill=thrGE))+geom_boxplot(alpha=0.5)+scale_fill_brewer("Dark2")
+ 
+```
+
+-tests
+```{r}
+#separated_DS_end
+#GA_TA02_seg_deg%>%
+  separated_DS_ect%>%
+mutate(log.dist=log10(min_dist+1))->GA_TA02_seg_deg
+
+ GA_TA02_seg_deg%>%
+  #ggplot(aes(set,log.dist,fill=thrGE))+geom_boxplot(alpha=0.5)+scale_fill_brewer("Dark2")
+  ggplot(aes(set,log.dist,fill=set))+geom_boxplot(alpha=0.5)+scale_fill_brewer("Dark2")
+ 
+ #-anova
+ GA_TA02_seg_deg%>%
+#anova_test(log.dist ~ set + thrGE + set*thrGE)
+ anova_test(log.dist ~ set )
+
+
+#GA_TA02_seg_deg%>%
+#anova_test(log.dist ~ set + thrGE + set*thrGE)
+#-------------------------------fast look
+GA_TA02_seg_deg%>%
+  #group_by(set,thrGE)%>%
+  group_by(set)%>%
+  summarise(mean=mean(log.dist))%>% ungroup()->summ_ds
+summ_ds
+
+summ_ds %>%
+  ggplot(aes(x=set, y=mean, colour=thrGE, group=set))+geom_line()+geom_point()+ylab("mean distance per set")
+
+summ_ds %>%
+  ggplot(aes(x=set, y=mean, colour=set, group=set))+geom_line()+geom_point()+ylab("mean distance per set")
+
+
+```
+
+
+  
