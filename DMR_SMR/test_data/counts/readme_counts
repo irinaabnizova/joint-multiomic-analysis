@@ -1,0 +1,18 @@
+CG counts in a window data from single cell bisulfate sequencing, chromosome 13 for the test
+
+\compute_DMRSMR\test_data\counts\me_unme_nposm_nposu_meth_Ect6_chr13.txt
+Format is: six fields
+1                2               3      4      5         6
+#CG_methylated #CG_unmethylated nposm nposu  total_CG  %meth
+
+2	0	2.00	0.00	2	100
+0	0	0.00	0.00	0	-1
+0	0	0.00	0.00	0	-1
+0	0	0.00	0.00	0	-1
+0	0	0.00	0.00	0	-1
+0	0	0.00	0.00	0	-1
+0	0	0.00	0.00	0	-1
+0	0	0.00	0.00	0	-1
+
+
+-1 in column 6 mean empty window (no information)
