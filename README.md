@@ -1,8 +1,10 @@
-# Joint_multiomic_analysis 
+# Joint multiomic analysis of mouse gastrulation data
 ![Fig6new_1](https://user-images.githubusercontent.com/61786710/132846059-046dbf8e-15ee-4c8d-bbe7-06892457ac45.png)
 
 
-## joint_multiomic_analysis :: Computational methods used to analyse jointly the transcriptome, chromatin accessibility and DNA methylation data from scNOME_seq data (Clark 2018).
+## Joint_multiomic_analysis: computational methods used to analyse jointly the transcriptome, chromatin accessibility and DNA methylation data from scNOME_seq data 
+
+- The data set is from (Argelaguet 2020). scNOME_seq tachnology as descibed in (Clark 2029, Kelly 2012)
 
 This set of methods allows to define two contrasting sets of genes: differentially expressed genes (DEGs) and similarly expressed genes (SEGs) from the transcriptomics data per lineage (pseudobulk).
 It further identifies epigenetic patterns genome-wide, for both chromatin and DNA methylation layers.
