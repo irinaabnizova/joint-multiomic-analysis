@@ -1,4 +1,5 @@
 # joint_multiomic_analysis 
+C:\Users\ia1\Documents\irina_docs\EpiGeVar\JointDifPap_currSept\final_figures_text\rene_figs12Aug\Fig6new_1.png 
 
 joint_multiomic_analysis :: Computational methods used to analyse jointly the transcriptome, chromatin accessibility and DNA methylation data from scNOME_seq data (Clark 2018).
 
