@@ -1,6 +1,8 @@
-Compute_DARSAR module
+## Compute_DARSAR module
 
 https://github.com/irinaabnizova/joint-multiomic-analysis/blob/master/DAR_SAR/Fig2new.png
+
+
 
 
 Computatitonal methods used to identify differentially accessible regions (DARs) and similarly accessible regions (SARs) geno-wide
