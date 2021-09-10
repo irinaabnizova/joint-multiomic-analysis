@@ -1,4 +1,5 @@
 Compute_DARSAR module
+![Fig2new.png](https://user-images.githubusercontent.com/61786710/132846059-046dbf8e-15ee-4c8d-bbe7-06892457ac45.png)
 
 Computatitonal methods used to identify differentially accessible regions (DARs) and similarly accessible regions (SARs) geno-wide
 from the GC-methylation data of bulked scNOME_seq.
