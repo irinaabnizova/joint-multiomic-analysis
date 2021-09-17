@@ -8,14 +8,17 @@ The detailed description of the method in in original manuscript:
 > 'Integrative analysis of transcriptomic and epigenomic data reveals distinct patterns for developmental and housekeeping genes'.
 
 #### Main scripts and functions
-``compute_dmr_smr_main.m`` : 
+``compute_dmr_smr_main_2.m`` : 
 
 
 #### A. default option
 
 **usage** 
 
-To run it, a user should submit minimal amount of input fils and the names/path of ouput files:
+To run it, use the code:
+`run_main_chr13.m`
+
+user should submit minimal amount of input fils and the names/path of ouput files:
 
 `[DMR,SMRH]=compute_dmr_smr_main_2(chrN,name_chr,file_win,file_countEct,file_countEnd,file_countMes,outDMR,outSMR);`
 
@@ -28,47 +31,41 @@ where
 In this case the default values of the five thresholds below:
 ```
    thr_cov=5;
-   thr_dif=0.51;
-   thr_sim=0.36; 
+   thr_dif=0.5;
+   thr_sim=0.35; 
    thr_meH=0.7;
-   thr_meL=0.4;
+   thr_meL=0.35;
    ```
    
 will be generated within the function.
 
-In the test folders the GC counts for chromosome 13 are stored, and the pathes/names of input and output files are generated for the
-har-coded function for compactness: ``[file_win,file_countEct,file_countEnd,file_countMes,outDMR,outSMR]=test_file_names(name_chr);`` 
+In the test folders theCpG counts for chromosome 13 are stored, and the pathes/names of input and output files are generated within the example code.
 
-Therefore, to run it from a command line one should run the following lines:
-```
-   name_chr='chr13';chrN=13;[file_win,file_countEct,file_countEnd,file_countMes,outDMR,outSMR]=test_file_names(name_chr);   
-   [DMR,SMRH]=compute_dmr_smr_main_2(chrN,name_chr,file_win,file_countEct,file_countEnd,file_countMes,outDMR,outSMR);
-```
 
  #### B. User-defined thresholds
  
- If the user wants to vary parameters,e.g. to filter with smaller coverage, then they should  submit 13 inputs, where the last five
- are user defined thresholds
+ If the user wants to vary parameters,e.g. to filter with smaller coverage, then they should  submit/insert in the body of the test scripts  13 inputs, where the last five  are user defined thresholds
  
  e.g. **usage** is:
  ```
-  thr_cov=5;
+   thr_cov=5;
    thr_dif=0.51;
    thr_sim=0.36; 
    thr_meH=0.6;
    thr_meL=0.3;
    
     name_chr='chr13';chrN=13;[file_win,file_countEct,file_countEnd,file_countMes,outDMR,outSMR]=test_file_names(name_chr);
-           [DAR,SARH]=compute_dar_sar_main_2(chrN,name_chr,file_win,file_countEct,file_countEnd,file_countMes,outDMR,outSMR,thr_cov,thr_dif,thr_sim,thr_meH,thr_meL);
+           [DMR,SMRH]=compute_dar_sar_main_2(chrN,name_chr,file_win,file_countEct,file_countEnd,file_countMes,outDMR,outSMR,thr_cov,thr_dif,thr_sim,thr_meH,thr_meL);
+           
 ```
 
 #### Description of the test example 
 
-The main function used for reading the GC-data (arranged per chromosome), computing it in a fixed size window, filtering it by coverage, separately for each lineage. It further computes a dominance index for each window across the three lineages. It uses this dominance index to infer DARs and SAR as most dominant and even windows. The user should specify the input variables: GC-files/path, window file/path and output path. Currently, it is hard-coded in the beinning of the script.
+The main function used for reading the CpG (arranged per chromosome), computing it in a fixed size window, filtering it by coverage, separately for each lineage. It further computes a dominance index for each window across the three lineages. It uses this dominance index to infer DARs and SAR as most dominant and even windows. The user should specify the input variables: CpG-files/path, window file/path and output path. Currently, it is hard-coded in the beinning of the script.
 
 #### Test data
 
-``test_data`` folder contains examples of GC-methylation data for each lineage (pseudo-bulked) chr 13, precomputed coordinates of each 100bp window for chromosome 13 and expected outputs of DMRs and SMRs for chr13.
+``test_data`` folder contains examples of CpG-methylation data for each lineage (pseudo-bulked) chr 13, precomputed coordinates of each 100bp window for chromosome 13 and expected outputs of DMRs and SMRs for chr13.
 
 - the function test_file_names.m
 generates names of the given test files arranged in the test_data folder: 
