@@ -27,11 +27,12 @@ Computational methods used to identify differentially accessible regions (DARs) 
 from the GC-methylation data of bulked scNOME_seq. This set of tools is used for producing of these two sets of chromatin accessible regions in bed-file format. 
  
  - compute DMRs, SMRs
- - compute DEG and SEGs
+ - define DEGs and SEGs
  - link chromatin and genes
  - link DNA methylation and genes
  - define lineage specific pioneering and cooperative TFs
 
 - The data set is from (Argelaguet 2020). scNOME_seq tachnology as descibed in (Clark 2029, Kelly 2012)
+
 Requirements: 
 *Matlab'octave, C (for CG/GC methylation windows precomputing),RStudio, R*
