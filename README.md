@@ -4,7 +4,7 @@
 
 ## Joint_multiomic_analysis: computational methods used to analyse jointly the transcriptome, chromatin accessibility and DNA methylation data from scNOME_seq data 
 
-- The data set is from (Argelaguet 2020). scNOME_seq tachnology as descibed in (Clark 2029, Kelly 2012)
+
 
 This set of methods allows to define two contrasting sets of genes: differentially expressed genes (DEGs) and similarly expressed genes (SEGs) from the transcriptomics data per lineage (pseudobulk).
 It further identifies epigenetic patterns genome-wide, for both chromatin and DNA methylation layers.
@@ -13,7 +13,7 @@ It analyses TF binding per lineage , depending on all three layers. It compares 
 
 Check the original manuscript where this method was applied for context details:
 
-'Integrative analysis of transcriptomic and epigenomic data reveals distinct patterns for developmental and housekeeping genes'
+'Integrative analysis of transcriptomic and epigenomic data reveals distinct patterns for developmental and housekeeping gene regulation'
 
 Tools described here can potentially be extended to disentangle gene regulatory programs in other tissues.
 
@@ -32,7 +32,6 @@ from the GC-methylation data of bulked scNOME_seq. This set of tools is used for
  - link DNA methylation and genes
  - define lineage specific pioneering and cooperative TFs
 
+- The data set is from (Argelaguet 2020). scNOME_seq tachnology as descibed in (Clark 2029, Kelly 2012)
 Requirements: 
-Matlab,
-C (for CG/GC methylation windows precomputing),
-R tidyverse
+*Matlab'octave, C (for CG/GC methylation windows precomputing),RStudio, R*
