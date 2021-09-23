@@ -1,7 +1,6 @@
 ## Module to compute distances between the nearest (expressed ) genes
 
-
-![Fig1_rene_christel_30July_1](https://user-images.githubusercontent.com/61786710/133782505-d0567656-cf2d-4bed-84e6-33a5a8b7a37c.png)
+![Fig1](https://user-images.githubusercontent.com/61786710/134468637-48e09cd7-ef96-4a58-a393-3fc257dd2ba0.png)
 
 Here one can find a set of computatitonal tools used to to compute distances between the nearest (expressed ) genes
 
