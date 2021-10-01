@@ -1,0 +1,1 @@
+### The data to test DMR SMR analysis are stored here. The format is standard .bed
