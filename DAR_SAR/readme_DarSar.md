@@ -86,4 +86,4 @@ DARs and SARs based on it.
  - ``save_chromatin_layers.m`` : function used to write sets of DARs and SARs in bed format into specified output file/path
 
 
-*Requires MatlabR2014b or octave*
+*Requires MatlabR2014b or octave 4.2*   
